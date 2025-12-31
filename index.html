@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="description" content="Wedding RSVP for The Millers">
   <title>Wedding RSVP</title>
   <style>
     @font-face {
@@ -10,24 +11,47 @@
       src: url('https://fonts.cdnfonts.com/s/95588/LeJourSerif-Regular.woff') format('woff');
       font-weight: normal;
       font-style: normal;
+      font-display: swap;
     }
     
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    html {
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
     }
     
     body {
-      font-family: 'Copperplate Gothic', 'Copperplate', 'Le Jour Serif', serif;
-      background-image: url('Background-100_.png');
+      font-family: 'Copperplate Gothic', 'Copperplate', 'Le Jour Serif', Georgia, serif;
+      background-image: url('Background-100%.png');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
       background-repeat: no-repeat;
       min-height: 100vh;
-      padding: 20px;
+      padding: clamp(12px, 3vw, 48px) clamp(12px, 3vw, 20px);
       position: relative;
+      overflow-x: hidden;
+    }
+    
+    /* Fallback for devices that don't support background-attachment: fixed */
+    @supports not (background-attachment: fixed) {
+      body {
+        background-attachment: scroll;
+      }
+    }
+    
+    /* Mobile Safari specific fix */
+    @supports (-webkit-touch-callout: none) {
+      body {
+        background-attachment: scroll;
+        min-height: -webkit-fill-available;
+      }
     }
     
     /* Overlay for better readability */
@@ -44,9 +68,10 @@
     }
     
     h1, h2, h3 {
-      font-family: 'Copperplate Gothic', 'Copperplate', 'Le Jour Serif', serif;
+      font-family: 'Copperplate Gothic', 'Copperplate', 'Le Jour Serif', Georgia, serif;
       font-weight: normal;
       letter-spacing: 2px;
+      line-height: 1.2;
     }
     
     .container {
@@ -54,98 +79,137 @@
       margin: 0 auto;
       position: relative;
       z-index: 1;
+      width: 100%;
     }
     
     .header {
       text-align: center;
-      margin-bottom: 32px;
+      margin-bottom: clamp(20px, 5vw, 48px);
+      padding: 0 clamp(8px, 2vw, 16px);
     }
     
     .header h1 {
-      font-size: clamp(36px, 8vw, 72px);
+      font-size: clamp(32px, 10vw, 72px);
       color: #313c5d;
-      margin-bottom: 12px;
+      margin-bottom: clamp(8px, 2vw, 16px);
       text-shadow: 0 2px 4px rgba(255,255,255,0.8);
-      letter-spacing: 4px;
+      letter-spacing: clamp(2px, 0.5vw, 4px);
+      word-break: break-word;
     }
     
     .header p {
-      font-size: clamp(16px, 4vw, 24px);
+      font-size: clamp(14px, 4vw, 24px);
       color: #6a2c35;
       font-weight: 300;
-      letter-spacing: 1px;
+      letter-spacing: clamp(0.5px, 0.2vw, 1px);
       text-shadow: 0 1px 2px rgba(255,255,255,0.8);
     }
     
     .card {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-      padding: clamp(24px, 5vw, 48px);
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: clamp(12px, 3vw, 20px);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      padding: clamp(20px, 5vw, 48px);
       backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      width: 100%;
+      overflow: hidden;
     }
     
     .welcome-icon {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: clamp(16px, 4vw, 24px);
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     
     .welcome-icon img {
-      width: clamp(80px, 15vw, 120px);
+      width: 100%;
+      max-width: clamp(100px, 20vw, 140px);
       height: auto;
       filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+      display: block;
     }
     
     .card h2 {
-      font-size: clamp(24px, 5vw, 32px);
+      font-size: clamp(22px, 6vw, 32px);
       color: #313c5d;
-      margin-bottom: 8px;
+      margin-bottom: clamp(6px, 2vw, 8px);
       text-align: center;
-      letter-spacing: 2px;
+      letter-spacing: clamp(1px, 0.3vw, 2px);
+      word-break: break-word;
     }
     
     .card p {
       color: #6b7280;
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: clamp(16px, 4vw, 24px);
+      line-height: 1.5;
     }
     
     label {
       display: block;
       color: #374151;
       font-size: clamp(14px, 3.5vw, 18px);
-      margin-bottom: 8px;
+      margin-bottom: clamp(6px, 2vw, 8px);
       font-weight: 600;
       letter-spacing: 0.5px;
+      line-height: 1.4;
     }
     
     input[type="text"],
     textarea {
       width: 100%;
-      padding: clamp(12px, 3vw, 16px) clamp(16px, 4vw, 24px);
+      padding: clamp(12px, 3vw, 16px) clamp(14px, 3.5vw, 24px);
       border: 2px solid #d1d5db;
-      border-radius: 12px;
+      border-radius: clamp(8px, 2vw, 12px);
       font-size: clamp(14px, 3.5vw, 18px);
-      font-family: 'Copperplate Gothic', 'Copperplate', 'Le Jour Serif', serif;
+      font-family: 'Copperplate Gothic', 'Copperplate', 'Le Jour Serif', Georgia, serif;
       transition: all 0.3s ease;
+      background: white;
+      color: #1f2937;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      line-height: 1.5;
+    }
+    
+    /* Prevent zoom on iOS when focusing inputs */
+    @media screen and (max-width: 768px) {
+      input[type="text"],
+      textarea,
+      select {
+        font-size: 16px !important;
+      }
     }
     
     input[type="text"]:focus,
     textarea:focus {
       outline: none;
       border-color: #6a2c35;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(106, 44, 53, 0.2);
+      box-shadow: 0 0 0 3px rgba(106, 44, 53, 0.1);
+    }
+    
+    /* Remove transform on mobile to prevent layout issues */
+    @media (hover: hover) {
+      input[type="text"]:focus,
+      textarea:focus {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(106, 44, 53, 0.2);
+      }
     }
     
     textarea {
-      resize: none;
+      resize: vertical;
+      min-height: 100px;
       font-size: clamp(14px, 3vw, 16px);
-      padding: 12px 16px;
+      padding: clamp(10px, 2.5vw, 12px) clamp(12px, 3vw, 16px);
     }
     
     .form-group {
-      margin-bottom: 24px;
+      margin-bottom: clamp(16px, 4vw, 24px);
       position: relative;
     }
     
@@ -153,26 +217,39 @@
       width: 100%;
       background: linear-gradient(135deg, #6a2c35, #313c5d);
       color: white;
-      padding: clamp(12px, 3vw, 16px) clamp(24px, 5vw, 32px);
-      border-radius: 12px;
+      padding: clamp(14px, 3.5vw, 18px) clamp(20px, 5vw, 32px);
+      border-radius: clamp(8px, 2vw, 12px);
       font-size: clamp(16px, 4vw, 20px);
       font-weight: 600;
       border: none;
       cursor: pointer;
-      font-family: 'Copperplate Gothic', 'Copperplate', 'Le Jour Serif', serif;
+      font-family: 'Copperplate Gothic', 'Copperplate', 'Le Jour Serif', Georgia, serif;
       transition: all 0.3s ease;
-      letter-spacing: 1px;
+      letter-spacing: clamp(0.5px, 0.2vw, 1px);
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
+      line-height: 1.2;
     }
     
-    .button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    @media (hover: hover) {
+      .button:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      }
+    }
+    
+    .button:active:not(:disabled) {
+      transform: translateY(0);
     }
     
     .button:disabled {
       background: #9ca3af;
       cursor: not-allowed;
-      transform: none;
+      opacity: 0.6;
     }
     
     .suggestions {
@@ -182,63 +259,74 @@
       margin-top: 8px;
       background: white;
       border: 2px solid #d1d5db;
-      border-radius: 12px;
+      border-radius: clamp(8px, 2vw, 12px);
       box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-      max-height: 250px;
+      max-height: min(250px, 50vh);
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
     
     .suggestion-item {
-      padding: clamp(10px, 2.5vw, 12px) clamp(16px, 4vw, 24px);
+      padding: clamp(10px, 2.5vw, 12px) clamp(14px, 3.5vw, 24px);
       cursor: pointer;
       border-bottom: 1px solid #f3f4f6;
       transition: all 0.2s ease;
       font-size: clamp(13px, 3vw, 16px);
+      line-height: 1.5;
+      word-break: break-word;
     }
     
     .suggestion-item:last-child {
       border-bottom: none;
     }
     
-    .suggestion-item:hover {
+    .suggestion-item:hover,
+    .suggestion-item:active {
       background: #f3f4f6;
-      transform: translateX(4px);
+    }
+    
+    @media (hover: hover) {
+      .suggestion-item:hover {
+        transform: translateX(4px);
+      }
     }
     
     .error {
       background: #fef2f2;
       border: 2px solid #fecaca;
-      border-radius: 12px;
+      border-radius: clamp(8px, 2vw, 12px);
       padding: clamp(12px, 3vw, 16px);
       color: #b91c1c;
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: clamp(16px, 4vw, 24px);
       font-size: clamp(13px, 3vw, 16px);
+      line-height: 1.5;
     }
     
     .warning {
       background: #fef3c7;
       border: 2px solid #fcd34d;
-      border-radius: 12px;
+      border-radius: clamp(8px, 2vw, 12px);
       padding: clamp(12px, 3vw, 16px);
       color: #92400e;
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: clamp(16px, 4vw, 24px);
       font-size: clamp(13px, 3vw, 16px);
+      line-height: 1.5;
     }
     
     .section {
       border-top: 2px solid #e5e7eb;
-      padding-top: 24px;
-      margin-top: 24px;
+      padding-top: clamp(16px, 4vw, 24px);
+      margin-top: clamp(16px, 4vw, 24px);
     }
     
     .attendee-card {
       background: #f9fafb;
-      border-radius: 12px;
-      padding: clamp(16px, 4vw, 20px);
+      border-radius: clamp(8px, 2vw, 12px);
+      padding: clamp(14px, 3.5vw, 20px);
       border: 2px solid #e5e7eb;
-      margin-bottom: 16px;
+      margin-bottom: clamp(12px, 3vw, 16px);
     }
     
     .attendee-card.incomplete {
@@ -250,47 +338,62 @@
       font-weight: 600;
       font-size: clamp(15px, 3.5vw, 18px);
       color: #1f2937;
-      margin-bottom: 12px;
+      margin-bottom: clamp(10px, 2.5vw, 12px);
       letter-spacing: 0.5px;
+      word-break: break-word;
+      line-height: 1.3;
     }
     
     .attendee-buttons {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: clamp(8px, 2vw, 12px);
-      margin-bottom: 16px;
+      margin-bottom: clamp(12px, 3vw, 16px);
     }
     
     .attendee-btn {
-      padding: clamp(10px, 2.5vw, 12px) clamp(12px, 3vw, 16px);
-      border-radius: 12px;
+      padding: clamp(11px, 2.8vw, 14px) clamp(10px, 2.5vw, 16px);
+      border-radius: clamp(8px, 2vw, 12px);
       border: 2px solid #d1d5db;
       background: white;
       color: #374151;
       cursor: pointer;
       font-weight: 600;
-      font-family: 'Copperplate Gothic', 'Copperplate', 'Le Jour Serif', serif;
+      font-family: 'Copperplate Gothic', 'Copperplate', 'Le Jour Serif', Georgia, serif;
       font-size: clamp(13px, 3vw, 16px);
       transition: all 0.3s ease;
       letter-spacing: 0.5px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
+      line-height: 1.2;
+      word-break: break-word;
+      hyphens: auto;
+      -webkit-hyphens: auto;
     }
     
     .attendee-btn.active-yes {
       background: #6a2c35;
       color: white;
       border-color: #6a2c35;
-      box-shadow: 0 4px 6px rgba(106, 44, 53, 0.3);
+      box-shadow: 0 2px 4px rgba(106, 44, 53, 0.3);
     }
     
     .attendee-btn.active-no {
       background: #313c5d;
       color: white;
       border-color: #313c5d;
-      box-shadow: 0 4px 6px rgba(49, 60, 93, 0.3);
+      box-shadow: 0 2px 4px rgba(49, 60, 93, 0.3);
     }
     
-    .attendee-btn:hover {
-      transform: translateY(-2px);
+    @media (hover: hover) {
+      .attendee-btn:hover:not(.active-yes):not(.active-no) {
+        transform: translateY(-2px);
+        border-color: #9ca3af;
+      }
     }
     
     .attendee-btn:active {
@@ -299,7 +402,7 @@
     
     .thank-you {
       text-align: center;
-      padding: clamp(40px, 10vw, 100px) 20px;
+      padding: clamp(30px, 8vw, 100px) clamp(12px, 3vw, 20px);
     }
     
     .thank-you-icon {
@@ -307,7 +410,7 @@
       height: clamp(64px, 15vw, 96px);
       background: linear-gradient(135deg, #6a2c35, #73692a);
       border-radius: 50%;
-      margin: 0 auto 24px;
+      margin: 0 auto clamp(20px, 5vw, 32px);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -316,68 +419,151 @@
     
     .info-box {
       background: #f9fafb;
-      border-radius: 12px;
+      border-radius: clamp(8px, 2vw, 12px);
       padding: clamp(16px, 4vw, 24px);
-      margin: 24px 0;
+      margin: clamp(20px, 5vw, 32px) 0;
       text-align: left;
     }
     
     .info-box p {
       font-size: clamp(12px, 3vw, 14px);
       color: #374151;
-      margin-bottom: 8px;
+      margin-bottom: clamp(6px, 1.5vw, 8px);
       text-align: left;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+    
+    .info-box p:last-child {
+      margin-bottom: 0;
     }
     
     .footer {
       text-align: center;
-      margin-top: 32px;
+      margin-top: clamp(24px, 6vw, 32px);
       color: #313c5d;
       font-size: clamp(12px, 3vw, 14px);
       text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+      padding: 0 clamp(8px, 2vw, 16px);
+      line-height: 1.5;
     }
     
     .hidden {
       display: none;
     }
     
-    /* Mobile optimizations */
-    @media (max-width: 640px) {
+    /* Improve scrolling on iOS */
+    .suggestions,
+    textarea {
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Prevent text selection on buttons */
+    button {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    
+    /* Extra small devices */
+    @media screen and (max-width: 375px) {
       body {
-        padding: 12px;
-        background-attachment: scroll;
-      }
-      
-      .header {
-        margin-bottom: 20px;
+        padding: 10px 8px;
       }
       
       .card {
-        border-radius: 16px;
+        padding: 16px;
       }
       
-      .section {
-        padding-top: 16px;
-        margin-top: 16px;
-      }
-      
-      .attendee-card {
-        margin-bottom: 12px;
-      }
-      
-      .form-group {
+      .header {
         margin-bottom: 16px;
       }
     }
     
-    /* Tablet and up */
-    @media (min-width: 641px) {
+    /* Small devices (landscape phones) */
+    @media screen and (min-width: 376px) and (max-width: 640px) {
       body {
-        padding: 40px 20px;
+        padding: 16px 12px;
+      }
+    }
+    
+    /* Tablets */
+    @media screen and (min-width: 641px) and (max-width: 1024px) {
+      body {
+        padding: 32px 20px;
+      }
+    }
+    
+    /* Large screens */
+    @media screen and (min-width: 1025px) {
+      body {
+        padding: 48px 20px;
       }
       
       .header {
-        margin-bottom: 40px;
+        margin-bottom: 48px;
+      }
+    }
+    
+    /* Landscape orientation fixes for mobile */
+    @media screen and (max-height: 500px) and (orientation: landscape) {
+      body {
+        padding: 12px 8px;
+      }
+      
+      .header {
+        margin-bottom: 12px;
+      }
+      
+      .header h1 {
+        font-size: clamp(24px, 6vw, 48px);
+      }
+      
+      .welcome-icon {
+        margin-bottom: 12px;
+      }
+      
+      .welcome-icon img {
+        max-width: 80px;
+      }
+    }
+    
+    /* High DPI screens */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+      .card {
+        box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+      }
+    }
+    
+    /* Dark mode support (optional) */
+    @media (prefers-color-scheme: dark) {
+      /* Keep light theme for wedding aesthetic, but you could adjust if needed */
+    }
+    
+    /* Reduced motion for accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+    
+    /* Print styles */
+    @media print {
+      body::before {
+        display: none;
+      }
+      
+      .button {
+        background: #6a2c35 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
       }
     }
   </style>
@@ -487,6 +673,19 @@
       return formData.attendees.every(a => a.attending !== null);
     }
 
+    // Debounce function for performance
+    function debounce(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
+
     // Render functions
     function renderLookup() {
       return `
@@ -505,13 +704,17 @@
             
             <form id="lookup-form">
               <div class="form-group">
-                <label>Your Address</label>
+                <label for="address-input">Your Address</label>
                 <input 
                   type="text" 
                   id="address-input" 
                   placeholder="Start typing your street address..."
                   autocomplete="off"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  spellcheck="false"
                   required
+                  aria-label="Enter your address"
                 />
                 <div id="suggestions-container"></div>
                 <p style="margin-top: 12px; font-size: clamp(12px, 3vw, 14px); color: #6b7280; text-align: left;">
@@ -521,7 +724,7 @@
               
               <div id="error-container"></div>
               
-              <button type="submit" class="button">Continue</button>
+              <button type="submit" class="button" aria-label="Continue to RSVP form">Continue</button>
             </form>
           </div>
           
@@ -543,6 +746,8 @@
               type="button" 
               class="attendee-btn ${attendee.attending === true ? 'active-yes' : ''}"
               onclick="updateAttendee(${index}, true)"
+              aria-label="Mark ${attendee.name} as attending"
+              aria-pressed="${attendee.attending === true}"
             >
               ✓ Attending
             </button>
@@ -550,19 +755,23 @@
               type="button" 
               class="attendee-btn ${attendee.attending === false ? 'active-no' : ''}"
               onclick="updateAttendee(${index}, false)"
+              aria-label="Mark ${attendee.name} as not attending"
+              aria-pressed="${attendee.attending === false}"
             >
               ✗ Not Attending
             </button>
           </div>
           ${attendee.attending === true ? `
             <div>
-              <label style="font-size: clamp(12px, 3vw, 14px);">Dietary Restrictions or Allergies</label>
+              <label for="dietary-${index}" style="font-size: clamp(12px, 3vw, 14px);">Dietary Restrictions or Allergies</label>
               <input 
                 type="text" 
+                id="dietary-${index}"
                 value="${attendee.dietary || ''}"
                 oninput="updateDietary(${index}, this.value)"
                 placeholder="Vegetarian, vegan, allergies, etc."
-                style="padding: 12px 16px; font-size: clamp(13px, 3vw, 14px);"
+                style="padding: 12px 16px; font-size: 16px;"
+                aria-label="Dietary restrictions for ${attendee.name}"
               />
             </div>
           ` : ''}
@@ -585,7 +794,7 @@
               <div class="section" style="border-top: none; padding-top: 0; margin-top: 0;">
                 <label style="font-size: clamp(15px, 3.5vw, 18px); margin-bottom: 16px;">Please let us know who will be attending *</label>
                 ${!allResponded ? `
-                  <div class="warning">
+                  <div class="warning" role="alert">
                     Please select Attending or Not Attending for each guest before submitting.
                   </div>
                 ` : ''}
@@ -594,28 +803,37 @@
               
               ${showSongRequest ? `
                 <div class="section">
-                  <label>Song Request</label>
+                  <label for="song-request">Song Request</label>
                   <input 
                     type="text" 
+                    id="song-request"
                     value="${formData.songRequest}"
                     oninput="formData.songRequest = this.value"
                     placeholder="What song will get you on the dance floor?"
-                    style="padding: 12px 16px; font-size: clamp(14px, 3vw, 16px);"
+                    style="padding: 12px 16px; font-size: 16px;"
+                    aria-label="Song request"
                   />
                 </div>
               ` : ''}
               
               <div class="section">
-                <label>Message to the Couple</label>
+                <label for="message">Message to the Couple</label>
                 <textarea 
+                  id="message"
                   rows="4"
                   oninput="formData.message = this.value"
                   placeholder="Share your well wishes..."
+                  aria-label="Message to the couple"
                 >${formData.message}</textarea>
               </div>
               
               <div style="padding-top: 24px;">
-                <button type="submit" class="button" ${!allResponded ? 'disabled' : ''}>
+                <button 
+                  type="submit" 
+                  class="button" 
+                  ${!allResponded ? 'disabled' : ''}
+                  aria-label="${allResponded ? 'Submit RSVP' : 'Please respond for all guests before submitting'}"
+                >
                   ${allResponded ? 'Submit RSVP' : 'Please Respond for All Guests'}
                 </button>
               </div>
@@ -636,7 +854,7 @@
               <div class="welcome-icon" style="margin-bottom: 24px;">
                 <img src="The_Millers.png" alt="The Millers" />
               </div>
-              <div class="thank-you-icon">❤️</div>
+              <div class="thank-you-icon" role="img" aria-label="Heart">❤️</div>
               <h2 style="font-size: clamp(28px, 6vw, 36px); margin-bottom: 16px;">Thank You!</h2>
               <p style="font-size: clamp(16px, 4vw, 20px); color: #374151; margin-bottom: 32px;">
                 ${totalAttending > 0 
@@ -677,7 +895,7 @@
       const suggestionsContainer = document.getElementById('suggestions-container');
       const errorContainer = document.getElementById('error-container');
 
-      input.addEventListener('input', (e) => {
+      const handleInput = debounce((e) => {
         const value = e.target.value;
         errorContainer.innerHTML = '';
         
@@ -698,12 +916,22 @@
         } else {
           suggestionsContainer.innerHTML = '';
         }
-      });
+      }, 150);
 
-      // Close suggestions when clicking outside
+      input.addEventListener('input', handleInput);
+
+      // Close suggestions when clicking/touching outside
       document.addEventListener('click', (e) => {
         if (!suggestionsContainer.contains(e.target) && e.target !== input) {
           suggestionsContainer.innerHTML = '';
+        }
+      });
+
+      // Prevent iOS zoom on focus
+      input.addEventListener('focus', function() {
+        if (window.visualViewport && window.visualViewport.scale !== 1) {
+          this.blur();
+          setTimeout(() => this.focus(), 0);
         }
       });
 
@@ -727,9 +955,11 @@
           };
           currentStep = 'form';
           render();
+          // Scroll to top smoothly
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
           errorContainer.innerHTML = `
-            <div class="error">
+            <div class="error" role="alert">
               We couldn't find that address in our guest list. Please check your invitation or contact us at wedding@example.com
             </div>
           `;
@@ -738,8 +968,13 @@
     }
 
     window.selectAddress = function(addr) {
-      document.getElementById('address-input').value = addr;
-      document.getElementById('suggestions-container').innerHTML = '';
+      const input = document.getElementById('address-input');
+      if (input) {
+        input.value = addr;
+        document.getElementById('suggestions-container').innerHTML = '';
+        // Trigger focus for better UX
+        input.focus();
+      }
     };
 
     function setupFormListeners() {
@@ -751,6 +986,12 @@
         if (!allAttendeesResponded()) {
           return;
         }
+        
+        // Disable button to prevent double submission
+        const submitBtn = e.target.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
         
         const submissionData = {
           address: formData.address,
@@ -778,9 +1019,14 @@
           console.log('RSVP submitted successfully');
           currentStep = 'thankyou';
           render();
+          // Scroll to top smoothly
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         } catch (error) {
           console.error('Submission error:', error);
           alert('There was an error submitting your RSVP. Please try again or contact us directly.');
+          // Re-enable button on error
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
         }
       });
     }
@@ -801,7 +1047,16 @@
     }
 
     // Initialize
-    render();
+    document.addEventListener('DOMContentLoaded', render);
+    
+    // Handle viewport height changes (especially on mobile)
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    
+    window.addEventListener('resize', debounce(() => {
+      vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }, 150));
   </script>
 </body>
 </html>
