@@ -20,9 +20,27 @@
     
     body {
       font-family: 'Copperplate Gothic', 'Copperplate', 'Le Jour Serif', serif;
-      background: linear-gradient(135deg, #6a2c35 0%, #313c5d 50%, #73692a 100%);
+      background-image: url('Background-100_.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
       min-height: 100vh;
-      padding: 48px 20px;
+      padding: 20px;
+      position: relative;
+    }
+    
+    /* Overlay for better readability */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.3);
+      z-index: 0;
+      pointer-events: none;
     }
     
     h1, h2, h3 {
@@ -34,43 +52,52 @@
     .container {
       max-width: 800px;
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
     
     .header {
       text-align: center;
-      margin-bottom: 48px;
+      margin-bottom: 32px;
     }
     
     .header h1 {
-      font-size: 72px;
-      color: white;
-      margin-bottom: 16px;
-      text-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      font-size: clamp(36px, 8vw, 72px);
+      color: #313c5d;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 4px rgba(255,255,255,0.8);
       letter-spacing: 4px;
     }
     
     .header p {
-      font-size: 24px;
-      color: rgba(255,255,255,0.9);
+      font-size: clamp(16px, 4vw, 24px);
+      color: #6a2c35;
       font-weight: 300;
       letter-spacing: 1px;
+      text-shadow: 0 1px 2px rgba(255,255,255,0.8);
     }
     
     .card {
       background: rgba(255, 255, 255, 0.95);
       border-radius: 20px;
       box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-      padding: 48px;
+      padding: clamp(24px, 5vw, 48px);
+      backdrop-filter: blur(10px);
     }
     
     .welcome-icon {
-      font-size: 64px;
       text-align: center;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
+    }
+    
+    .welcome-icon img {
+      width: clamp(80px, 15vw, 120px);
+      height: auto;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
     }
     
     .card h2 {
-      font-size: 32px;
+      font-size: clamp(24px, 5vw, 32px);
       color: #313c5d;
       margin-bottom: 8px;
       text-align: center;
@@ -80,13 +107,13 @@
     .card p {
       color: #6b7280;
       text-align: center;
-      margin-bottom: 32px;
+      margin-bottom: 24px;
     }
     
     label {
       display: block;
       color: #374151;
-      font-size: 18px;
+      font-size: clamp(14px, 3.5vw, 18px);
       margin-bottom: 8px;
       font-weight: 600;
       letter-spacing: 0.5px;
@@ -95,10 +122,10 @@
     input[type="text"],
     textarea {
       width: 100%;
-      padding: 16px 24px;
+      padding: clamp(12px, 3vw, 16px) clamp(16px, 4vw, 24px);
       border: 2px solid #d1d5db;
       border-radius: 12px;
-      font-size: 18px;
+      font-size: clamp(14px, 3.5vw, 18px);
       font-family: 'Copperplate Gothic', 'Copperplate', 'Le Jour Serif', serif;
       transition: all 0.3s ease;
     }
@@ -113,7 +140,7 @@
     
     textarea {
       resize: none;
-      font-size: 16px;
+      font-size: clamp(14px, 3vw, 16px);
       padding: 12px 16px;
     }
     
@@ -126,9 +153,9 @@
       width: 100%;
       background: linear-gradient(135deg, #6a2c35, #313c5d);
       color: white;
-      padding: 16px 32px;
+      padding: clamp(12px, 3vw, 16px) clamp(24px, 5vw, 32px);
       border-radius: 12px;
-      font-size: 20px;
+      font-size: clamp(16px, 4vw, 20px);
       font-weight: 600;
       border: none;
       cursor: pointer;
@@ -162,10 +189,11 @@
     }
     
     .suggestion-item {
-      padding: 12px 24px;
+      padding: clamp(10px, 2.5vw, 12px) clamp(16px, 4vw, 24px);
       cursor: pointer;
       border-bottom: 1px solid #f3f4f6;
       transition: all 0.2s ease;
+      font-size: clamp(13px, 3vw, 16px);
     }
     
     .suggestion-item:last-child {
@@ -181,20 +209,22 @@
       background: #fef2f2;
       border: 2px solid #fecaca;
       border-radius: 12px;
-      padding: 16px;
+      padding: clamp(12px, 3vw, 16px);
       color: #b91c1c;
       text-align: center;
       margin-bottom: 24px;
+      font-size: clamp(13px, 3vw, 16px);
     }
     
     .warning {
       background: #fef3c7;
       border: 2px solid #fcd34d;
       border-radius: 12px;
-      padding: 16px;
+      padding: clamp(12px, 3vw, 16px);
       color: #92400e;
       text-align: center;
       margin-bottom: 24px;
+      font-size: clamp(13px, 3vw, 16px);
     }
     
     .section {
@@ -206,7 +236,7 @@
     .attendee-card {
       background: #f9fafb;
       border-radius: 12px;
-      padding: 20px;
+      padding: clamp(16px, 4vw, 20px);
       border: 2px solid #e5e7eb;
       margin-bottom: 16px;
     }
@@ -218,7 +248,7 @@
     
     .attendee-name {
       font-weight: 600;
-      font-size: 18px;
+      font-size: clamp(15px, 3.5vw, 18px);
       color: #1f2937;
       margin-bottom: 12px;
       letter-spacing: 0.5px;
@@ -227,12 +257,12 @@
     .attendee-buttons {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: clamp(8px, 2vw, 12px);
       margin-bottom: 16px;
     }
     
     .attendee-btn {
-      padding: 12px 16px;
+      padding: clamp(10px, 2.5vw, 12px) clamp(12px, 3vw, 16px);
       border-radius: 12px;
       border: 2px solid #d1d5db;
       background: white;
@@ -240,7 +270,7 @@
       cursor: pointer;
       font-weight: 600;
       font-family: 'Copperplate Gothic', 'Copperplate', 'Le Jour Serif', serif;
-      font-size: 16px;
+      font-size: clamp(13px, 3vw, 16px);
       transition: all 0.3s ease;
       letter-spacing: 0.5px;
     }
@@ -263,33 +293,37 @@
       transform: translateY(-2px);
     }
     
+    .attendee-btn:active {
+      transform: translateY(0);
+    }
+    
     .thank-you {
       text-align: center;
-      padding: 100px 20px;
+      padding: clamp(40px, 10vw, 100px) 20px;
     }
     
     .thank-you-icon {
-      width: 96px;
-      height: 96px;
+      width: clamp(64px, 15vw, 96px);
+      height: clamp(64px, 15vw, 96px);
       background: linear-gradient(135deg, #6a2c35, #73692a);
       border-radius: 50%;
-      margin: 0 auto 32px;
+      margin: 0 auto 24px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 48px;
+      font-size: clamp(32px, 8vw, 48px);
     }
     
     .info-box {
       background: #f9fafb;
       border-radius: 12px;
-      padding: 24px;
-      margin: 32px 0;
+      padding: clamp(16px, 4vw, 24px);
+      margin: 24px 0;
       text-align: left;
     }
     
     .info-box p {
-      font-size: 14px;
+      font-size: clamp(12px, 3vw, 14px);
       color: #374151;
       margin-bottom: 8px;
       text-align: left;
@@ -298,12 +332,53 @@
     .footer {
       text-align: center;
       margin-top: 32px;
-      color: rgba(255,255,255,0.8);
-      font-size: 14px;
+      color: #313c5d;
+      font-size: clamp(12px, 3vw, 14px);
+      text-shadow: 0 1px 2px rgba(255,255,255,0.8);
     }
     
     .hidden {
       display: none;
+    }
+    
+    /* Mobile optimizations */
+    @media (max-width: 640px) {
+      body {
+        padding: 12px;
+        background-attachment: scroll;
+      }
+      
+      .header {
+        margin-bottom: 20px;
+      }
+      
+      .card {
+        border-radius: 16px;
+      }
+      
+      .section {
+        padding-top: 16px;
+        margin-top: 16px;
+      }
+      
+      .attendee-card {
+        margin-bottom: 12px;
+      }
+      
+      .form-group {
+        margin-bottom: 16px;
+      }
+    }
+    
+    /* Tablet and up */
+    @media (min-width: 641px) {
+      body {
+        padding: 40px 20px;
+      }
+      
+      .header {
+        margin-bottom: 40px;
+      }
     }
   </style>
 </head>
@@ -422,13 +497,15 @@
           </div>
           
           <div class="card">
-            <div class="welcome-icon">🏠</div>
+            <div class="welcome-icon">
+              <img src="The_Millers.png" alt="The Millers" />
+            </div>
             <h2>Welcome</h2>
-            <p style="font-size: 18px;">Please enter your address to begin</p>
+            <p style="font-size: clamp(14px, 3.5vw, 18px);">Please enter your address to begin</p>
             
             <form id="lookup-form">
               <div class="form-group">
-                <label>📍 Your Address</label>
+                <label>Your Address</label>
                 <input 
                   type="text" 
                   id="address-input" 
@@ -437,7 +514,7 @@
                   required
                 />
                 <div id="suggestions-container"></div>
-                <p style="margin-top: 12px; font-size: 14px; color: #6b7280; text-align: left;">
+                <p style="margin-top: 12px; font-size: clamp(12px, 3vw, 14px); color: #6b7280; text-align: left;">
                   Enter the address as it appears on your invitation
                 </p>
               </div>
@@ -479,13 +556,13 @@
           </div>
           ${attendee.attending === true ? `
             <div>
-              <label style="font-size: 14px;">Dietary Restrictions or Allergies</label>
+              <label style="font-size: clamp(12px, 3vw, 14px);">Dietary Restrictions or Allergies</label>
               <input 
                 type="text" 
                 value="${attendee.dietary || ''}"
                 oninput="updateDietary(${index}, this.value)"
                 placeholder="Vegetarian, vegan, allergies, etc."
-                style="padding: 12px 16px; font-size: 14px;"
+                style="padding: 12px 16px; font-size: clamp(13px, 3vw, 14px);"
               />
             </div>
           ` : ''}
@@ -497,13 +574,16 @@
       return `
         <div class="container">
           <div class="card">
+            <div class="welcome-icon">
+              <img src="The_Millers.png" alt="The Millers" />
+            </div>
             <h2>Your RSVP</h2>
-            <p style="text-align: left; margin-bottom: 8px;">🏠 ${currentGuest.householdName}</p>
-            <p style="font-size: 14px; color: #9ca3af; text-align: left; margin-bottom: 32px;">${currentGuest.address}</p>
+            <p style="text-align: left; margin-bottom: 8px; font-size: clamp(14px, 3.5vw, 16px);">${currentGuest.householdName}</p>
+            <p style="font-size: clamp(12px, 3vw, 14px); color: #9ca3af; text-align: left; margin-bottom: 24px;">${currentGuest.address}</p>
             
             <form id="rsvp-form">
               <div class="section" style="border-top: none; padding-top: 0; margin-top: 0;">
-                <label style="font-size: 18px; margin-bottom: 16px;">👥 Please let us know who will be attending *</label>
+                <label style="font-size: clamp(15px, 3.5vw, 18px); margin-bottom: 16px;">Please let us know who will be attending *</label>
                 ${!allResponded ? `
                   <div class="warning">
                     Please select Attending or Not Attending for each guest before submitting.
@@ -520,7 +600,7 @@
                     value="${formData.songRequest}"
                     oninput="formData.songRequest = this.value"
                     placeholder="What song will get you on the dance floor?"
-                    style="padding: 12px 16px; font-size: 16px;"
+                    style="padding: 12px 16px; font-size: clamp(14px, 3vw, 16px);"
                   />
                 </div>
               ` : ''}
@@ -553,9 +633,12 @@
         <div class="container">
           <div class="thank-you">
             <div class="card">
+              <div class="welcome-icon" style="margin-bottom: 24px;">
+                <img src="The_Millers.png" alt="The Millers" />
+              </div>
               <div class="thank-you-icon">❤️</div>
-              <h2 style="font-size: 36px; margin-bottom: 16px;">Thank You!</h2>
-              <p style="font-size: 20px; color: #374151; margin-bottom: 32px;">
+              <h2 style="font-size: clamp(28px, 6vw, 36px); margin-bottom: 16px;">Thank You!</h2>
+              <p style="font-size: clamp(16px, 4vw, 20px); color: #374151; margin-bottom: 32px;">
                 ${totalAttending > 0 
                   ? `We can't wait to celebrate with ${totalAttending > 1 ? 'you all' : 'you'}!` 
                   : "We'll miss you on our special day."}
@@ -567,7 +650,7 @@
               </div>
               
               <div style="border-top: 2px solid #73692a; padding-top: 32px; margin-top: 32px;">
-                <p style="font-size: 14px; color: #9ca3af; font-style: italic; text-align: center;">
+                <p style="font-size: clamp(12px, 3vw, 14px); color: #9ca3af; font-style: italic; text-align: center;">
                   With love and gratitude
                 </p>
               </div>
@@ -613,6 +696,13 @@
             suggestionsContainer.innerHTML = '';
           }
         } else {
+          suggestionsContainer.innerHTML = '';
+        }
+      });
+
+      // Close suggestions when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!suggestionsContainer.contains(e.target) && e.target !== input) {
           suggestionsContainer.innerHTML = '';
         }
       });
