@@ -42,7 +42,6 @@
       }
     }
     
-
     h1, h2, h3 {
       font-family: 'Copperplate Gothic', 'Copperplate', 'Le Jour Serif', Georgia, serif;
       font-weight: normal;
@@ -58,7 +57,6 @@
       width: 100%;
     }
     
-
     .card {
       background: rgb(255, 255, 255);
       border-radius: clamp(12px, 3vw, 20px);
@@ -213,19 +211,31 @@
       border: 2px solid #d1d5db;
       border-radius: clamp(8px, 2vw, 12px);
       box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-      max-height: min(250px, 50vh);
+      max-height: min(400px, 50vh);
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
     }
     
     .suggestion-item {
-      padding: clamp(10px, 2.5vw, 12px) clamp(14px, 3.5vw, 24px);
+      padding: clamp(12px, 3vw, 14px) clamp(14px, 3.5vw, 24px);
       cursor: pointer;
       border-bottom: 1px solid #f3f4f6;
       transition: all 0.2s ease;
-      font-size: clamp(13px, 3vw, 16px);
       line-height: 1.5;
       word-break: break-word;
+    }
+    
+    .suggestion-address {
+      font-size: clamp(13px, 3vw, 15px);
+      color: #374151;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .suggestion-household {
+      font-size: clamp(12px, 2.8vw, 13px);
+      color: #6b7280;
+      font-style: italic;
     }
     
     .suggestion-item:last-child {
@@ -357,18 +367,6 @@
       padding: clamp(30px, 8vw, 100px) clamp(12px, 3vw, 20px);
     }
     
-    .thank-you-icon {
-      width: clamp(64px, 15vw, 96px);
-      height: clamp(64px, 15vw, 96px);
-      background: linear-gradient(135deg, #6a2c35, #73692a);
-      border-radius: 50%;
-      margin: 0 auto clamp(20px, 5vw, 32px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: clamp(32px, 8vw, 48px);
-    }
-    
     .info-box {
       background: #f9fafb;
       border-radius: clamp(8px, 2vw, 12px);
@@ -390,7 +388,6 @@
       margin-bottom: 0;
     }
     
-
     .hidden {
       display: none;
     }
@@ -465,11 +462,6 @@
       }
     }
     
-    /* Dark mode support (optional) */
-    @media (prefers-color-scheme: dark) {
-      /* Keep light theme for wedding aesthetic, but you could adjust if needed */
-    }
-    
     /* Reduced motion for accessibility */
     @media (prefers-reduced-motion: reduce) {
       *,
@@ -483,10 +475,6 @@
     
     /* Print styles */
     @media print {
-      body::before {
-        display: none;
-      }
-      
       .button {
         background: #6a2c35 !important;
         -webkit-print-color-adjust: exact;
@@ -499,94 +487,190 @@
   <div id="app"></div>
 
   <script>
-    // Guest Database
-    const GUEST_DATABASE = {
-      "8249 state route 305 garrettsville oh 44231": {
-        address: "8249 State Route 305 Garrettsville OH 44231",
-        householdName: "Mr. and Mrs. Ryan Miller",
-        guestNames: ["Ryan Miller", "Kristine Miller"],
-        numberOfGuests: 2
-      },
-      "16289 munn rd burton oh 44021": {
-        address: "16289 Munn Rd Burton OH 44021",
-        householdName: "Mr. and Mrs. Josh Garrett",
-        guestNames: ["Josh Garrett", "Whitney Garrett", "Margot Garrett", "Baby #2"],
-        numberOfGuests: 4
-      },
-      "714 glendale st sw north canton oh 44720": {
-        address: "714 Glendale St SW North Canton OH 44720",
-        householdName: "Mr. and Mrs. Marcus Miller",
-        guestNames: ["Marcus Miller", "Kiana Miller"],
-        numberOfGuests: 2
-      },
-      "7964 state route 305 garrettsville oh 44231": {
-        address: "7964 State Route 305 Garrettsville OH 44231",
-        householdName: "Mrs. Rebecca Miller",
-        guestNames: ["Rebecca Miller"],
-        numberOfGuests: 1
-      },
-      "8342 state route 305 garrettsville oh 44231": {
-        address: "8342 State Route 305 Garrettsville OH 44231",
-        householdName: "Mr. and Mrs. Ron Gill",
-        guestNames: ["Ron Gill", "Cynthia Gill"],
-        numberOfGuests: 2
-      },
-      "7950 state route 305 garrettsville oh 44231": {
-        address: "7950 State Route 305 Garrettsville OH 44231",
-        householdName: "Mr. and Mrs. Jeff Miller",
-        guestNames: ["Jeff Miller", "Karen Miller"],
-        numberOfGuests: 2
-      },
-      "612 harvest dr ravenna oh 44266": {
-        address: "612 Harvest Dr Ravenna OH 44266",
-        householdName: "Ms. Cara Miller",
-        guestNames: ["Cara Miller"],
-        numberOfGuests: 1
-      },
-      "860 smithfield dr #1910 sagamore hills oh 44067": {
-        address: "860 Smithfield Dr #1910 Sagamore Hills OH 44067",
-        householdName: "Mr. and Mrs. Matt Miller",
-        guestNames: ["Matt Miller", "Brenda Miller"],
-        numberOfGuests: 2
-      },
-      "4445 n 36th st apt 308 phoenix az 85018": {
-        address: "4445 N 36th St Apt 308 Phoenix AZ 85018",
-        householdName: "Ms. Brianna Miller",
-        guestNames: ["Brianna Miller"],
-        numberOfGuests: 1
-      },
-      "1098 oak st medina oh 44256": {
-        address: "1098 Oak St Medina OH 44256",
-        householdName: "Mr. and Mrs. Seth Miller",
-        guestNames: ["Seth Miller", "Abby Miller"],
-        numberOfGuests: 2
-      },
-      "17577 normandy rd lake milton oh 44429": {
-        address: "17577 Normandy Rd Lake Milton OH 44429",
-        householdName: "Mr. and Mrs. Jeff Gill",
-        guestNames: ["Jeff Gill", "Johnna Gill"],
-        numberOfGuests: 2
-      },
-      "17362 afton ave lake milton oh 44429": {
-        address: "17362 Afton Ave Lake Milton OH 44429",
-        householdName: "Ms. Samantha Gill",
-        guestNames: ["Samantha Gill"],
-        numberOfGuests: 1
-      }
-    };
+    // Guest List (array to preserve duplicates)
+const GUEST_LIST = [const GUEST_LIST = [
+  {
+    address: "8249 State Route 305 Garrettsville OH 44231",
+    householdName: "Mr. and Mrs. Ryan Miller",
+    guestNames: ["Ryan Miller", "Kristine Miller"],
+    numberOfGuests: 2
+  },
+  {
+    address: "16289 Munn Rd Burton OH 44021",
+    householdName: "The Garrett Family",
+    guestNames: ["Josh Garrett", "Whitney Garrett", "Margot Garrett", "Baby #2"],
+    numberOfGuests: 4
+  },
+  {
+    address: "714 Glendale St SW North Canton OH 44720",
+    householdName: "Mr. and Mrs. Marcus Miller",
+    guestNames: ["Marcus Miller", "Kiana Miller"],
+    numberOfGuests: 2
+  },
+  {
+    address: "7964 State Route 305 Garrettsville OH 44231",
+    householdName: "Mrs. Rebecca Miller",
+    guestNames: ["Rebecca Miller"],
+    numberOfGuests: 1
+  },
+  {
+    address: "8342 State Route 305 Garrettsville OH 44231",
+    householdName: "Mr. and Mrs. Ron Gill",
+    guestNames: ["Ron Gill", "Cynthia Gill"],
+    numberOfGuests: 2
+  },
+  {
+    address: "7950 State Route 305 Garrettsville OH 44231",
+    householdName: "Mr. and Mrs. Jeff Miller",
+    guestNames: ["Jeff Miller", "Karen Miller"],
+    numberOfGuests: 2
+  },
+  {
+    address: "612 Harvest Dr Ravenna OH 44266",
+    householdName: "Ms. Cara Miller",
+    guestNames: ["Cara Miller", "Guest"],
+    numberOfGuests: 1
+  },
+  {
+    address: "860 Smithfield Dr #1910 Sagamore Hills OH 44067",
+    householdName: "Mr. and Mrs. Matt Miller",
+    guestNames: ["Matt Miller", "Brenda Miller"],
+    numberOfGuests: 2
+  },
+  {
+    address: "4445 N 36th St Apt 308 Phoenix AZ 85018",
+    householdName: "Ms. Brianna Miller",
+    guestNames: ["Brianna Miller"],
+    numberOfGuests: 1
+  },
+  {
+    address: "1098 Oak St Medina OH 44256",
+    householdName: "Mr. and Mrs. Seth Miller",
+    guestNames: ["Seth Miller", "Abby Miller"],
+    numberOfGuests: 2
+  },
+  {
+    address: "17577 Normandy Rd Lake Milton OH 44429",
+    householdName: "Mr. and Mrs. Jeff Gill",
+    guestNames: ["Jeff Gill", "Johnna Gill"],
+    numberOfGuests: 2
+  },
+  {
+    address: "17362 Afton Ave Lake Milton OH 44429",
+    householdName: "Ms. Samantha Gill",
+    guestNames: ["Samantha Gill"],
+    numberOfGuests: 1
+  },
+  {
+    address: "1983 W Comet Rd Clinton OH 44216",
+    householdName: "Mr. and Mrs. Dean Wood",
+    guestNames: ["Dean Wood", "April Wood"],
+    numberOfGuests: 2
+  },
+  {
+    address: "9 Early Dr Portsmouth VA 23701",
+    householdName: "The Beckman Family",
+    guestNames: ["Nick Beckman", "Megan Beckman", "Daniel Beckman", "Luke Beckman", "Riley Beckman", "Samuel Beckman"],
+    numberOfGuests: 6
+  },
+  {
+    address: "2857 SOM Center Road Hunting Valley OH 44022",
+    householdName: "The Pinney Family",
+    guestNames: ["Jon Pinney", "Amanda Pinney", "Jackson Pinney", "Carter Pinney"],
+    numberOfGuests: 4
+  },
+  {
+    address: "9 Early Dr Portsmouth VA 23701",
+    householdName: "Mr. and Mrs. Gary LeBlanc",
+    guestNames: ["Gary LeBlanc", "Anne LeBlanc"],
+    numberOfGuests: 2
+  },
+  {
+    address: "6773 Dalton Fox Lake Road North Lawrence OH 44666",
+    householdName: "Mr. and Mrs. John Farley",
+    guestNames: ["John Farley", "Jodi Wood"],
+    numberOfGuests: 2
+  },
+  {
+    address: "1089 Sceniecrest St NW Uniontown OH 44685",
+    householdName: "Mr. and Mrs. Tom Ramos",
+    guestNames: ["Tom Ramos", "Denise Ramos"],
+    numberOfGuests: 2
+  },
+  {
+    address: "4020 Brier Creek Parkway #219 Green OH 44685",
+    householdName: "Mr. and Mrs. David Wood",
+    guestNames: ["David Wood", "Janice Wood"],
+    numberOfGuests: 2
+  },
+  {
+    address: "6773 Dalton Fox Lake Road North Lawrence OH 44666",
+    householdName: "Mr. Mawell Wood",
+    guestNames: ["Mawell Wood"],
+    numberOfGuests: 1
+  },
+  {
+    address: "2849 Abalonia Dr Melbourne FL 32940",
+    householdName: "Mr. and Mrs. Kevin Armbruster",
+    guestNames: ["Kevin Armbruster", "Renee Armbruster"],
+    numberOfGuests: 2
+  },
+  {
+    address: "3494 Ada Vista Drive Uniontown OH 44685",
+    householdName: "Mr. and Mrs. Victor Dorsey",
+    guestNames: ["Victor Dorsey", "Debra Dorsey"],
+    numberOfGuests: 2
+  },
+  {
+    address: "2141 Lynn Drive Akron OH 44312",
+    householdName: "Ms. Kim Mauthe",
+    guestNames: ["Kim Mauthe", "Mark?"],
+    numberOfGuests: 2
+  },
+  {
+    address: "793 Davies Avenue Akron OH 44306",
+    householdName: "Mr. and Mrs. Matt Watson",
+    guestNames: ["Matt Watson", "Ashlee Watson"],
+    numberOfGuests: 2
+  },
+  {
+    address: "227 East Long Lake Blvd Akron OH 44319",
+    householdName: "Ms. Stephanie Gainer",
+    guestNames: ["Stephanie Gainer", "James?"],
+    numberOfGuests: 2
+  },
+  {
+    address: "415 Dennison Avenue Akron OH 44312",
+    householdName: "Mr. and Mrs. Russel Bell",
+    guestNames: ["Russel Bell", "Lisa Bell"],
+    numberOfGuests: 2
+  },
+  {
+    address: "182 Cornelia Street Unit 2 Brooklyn NY 11221",
+    householdName: "Ms. Masha Healy",
+    guestNames: ["Masha Healy"],
+    numberOfGuests: 1
+  },
+  {
+    address: "7849 Gotham Road Garrettsville OH 44231",
+    householdName: "Mr. Daniel Kleinhen",
+    guestNames: ["Daniel Kleinhen", "Elaine Bissel"],
+    numberOfGuests: 2
+  },
+  {
+    address: "1321 Sands Terrace W Apt 305 Clearwater FL 33764",
+    householdName: "Mr. Jimmy Lagese",
+    guestNames: ["Jimmy Lagese", "Madison Markel"],
+    numberOfGuests: 2
+  },
+  {
+    address: "1871 Ashfield Drive Kingsport TN 37664",
+    householdName: "Mr. and Mrs. Marc Dietrich",
+    guestNames: ["Marc Dietrich", "Rebecca Dietrich"],
+    numberOfGuests: 2
+  }
+];
 
-    const ALL_ADDRESSES = Object.values(GUEST_DATABASE).map(g => g.address);
-
-    // State
-    let currentStep = 'lookup';
-    let currentGuest = null;
-    let formData = {
-      address: '',
-      householdName: '',
-      attendees: [],
-      songRequest: '',
-      message: ''
-    };
 
     // Utilities
     function normalizeAddress(addr) {
@@ -599,6 +683,17 @@
     function allAttendeesResponded() {
       return formData.attendees.every(a => a.attending !== null);
     }
+
+    // State
+    let currentStep = 'lookup';
+    let currentGuest = null;
+    let formData = {
+      address: '',
+      householdName: '',
+      attendees: [],
+      songRequest: '',
+      message: ''
+    };
 
     // Debounce function for performance
     function debounce(func, wait) {
@@ -824,13 +919,17 @@
         errorContainer.innerHTML = '';
         
         if (value.length >= 3) {
-          const matches = ALL_ADDRESSES.filter(addr => 
-            addr.toLowerCase().includes(value.toLowerCase())
+          // Find matching guests
+          const matches = GUEST_LIST.filter(guest => 
+            guest.address.toLowerCase().includes(value.toLowerCase())
           );
           
           if (matches.length > 0) {
-            const suggestionsHTML = matches.map(addr => 
-              `<div class="suggestion-item" onclick="selectAddress('${addr.replace(/'/g, "\\'")}')">📍 ${addr}</div>`
+            const suggestionsHTML = matches.map((guest, index) => 
+              `<div class="suggestion-item" onclick="selectGuest(${GUEST_LIST.indexOf(guest)})">
+                <div class="suggestion-address">📍 ${guest.address}</div>
+                <div class="suggestion-household">${guest.householdName}</div>
+              </div>`
             ).join('');
             
             suggestionsContainer.innerHTML = `<div class="suggestions">${suggestionsHTML}</div>`;
@@ -861,40 +960,40 @@
 
       form.addEventListener('submit', (e) => {
         e.preventDefault();
-        const lookupKey = normalizeAddress(input.value);
-        const guest = GUEST_DATABASE[lookupKey];
         
-        if (guest) {
-          currentGuest = guest;
-          formData = {
-            address: guest.address,
-            householdName: guest.householdName,
-            attendees: guest.guestNames.map(name => ({
-              name: name,
-              attending: null,
-              dietary: ''
-            })),
-            songRequest: '',
-            message: ''
-          };
-          currentStep = 'form';
-          render();
-          // Scroll to top smoothly
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        } else {
+        if (!currentGuest) {
           errorContainer.innerHTML = `
             <div class="error" role="alert">
-              We couldn't find that address in our guest list. Please check your invitation or contact us at dfmiller.3100@gmail.com
+              Please select an address from the suggestions list.
             </div>
           `;
+          return;
         }
+        
+        formData = {
+          address: currentGuest.address,
+          householdName: currentGuest.householdName,
+          attendees: currentGuest.guestNames.map(name => ({
+            name: name,
+            attending: null,
+            dietary: ''
+          })),
+          songRequest: '',
+          message: ''
+        };
+        currentStep = 'form';
+        render();
+        // Scroll to top smoothly
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     }
 
-    window.selectAddress = function(addr) {
+    window.selectGuest = function(guestIndex) {
+      const guest = GUEST_LIST[guestIndex];
+      currentGuest = guest;
       const input = document.getElementById('address-input');
       if (input) {
-        input.value = addr;
+        input.value = guest.address;
         document.getElementById('suggestions-container').innerHTML = '';
         // Trigger focus for better UX
         input.focus();
