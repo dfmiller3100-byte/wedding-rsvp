@@ -28,45 +28,21 @@
     
     body {
       font-family: 'Copperplate Gothic', 'Copperplate', 'Le Jour Serif', Georgia, serif;
-      background-image: url('Background-100_.png');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      background-repeat: no-repeat;
+      background: transparent;
       min-height: 100vh;
       padding: clamp(12px, 3vw, 48px) clamp(12px, 3vw, 20px);
       position: relative;
       overflow-x: hidden;
     }
     
-    /* Fallback for devices that don't support background-attachment: fixed */
-    @supports not (background-attachment: fixed) {
-      body {
-        background-attachment: scroll;
-      }
-    }
-    
     /* Mobile Safari specific fix */
     @supports (-webkit-touch-callout: none) {
       body {
-        background-attachment: scroll;
         min-height: -webkit-fill-available;
       }
     }
     
-    /* Overlay for better readability */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(255, 255, 255, 0.3);
-      z-index: 0;
-      pointer-events: none;
-    }
-    
+
     h1, h2, h3 {
       font-family: 'Copperplate Gothic', 'Copperplate', 'Le Jour Serif', Georgia, serif;
       font-weight: normal;
@@ -82,29 +58,7 @@
       width: 100%;
     }
     
-    .header {
-      text-align: center;
-      margin-bottom: clamp(20px, 5vw, 48px);
-      padding: 0 clamp(8px, 2vw, 16px);
-    }
-    
-    .header h1 {
-      font-size: clamp(32px, 10vw, 72px);
-      color: #313c5d;
-      margin-bottom: clamp(8px, 2vw, 16px);
-      text-shadow: 0 2px 4px rgba(255,255,255,0.8);
-      letter-spacing: clamp(2px, 0.5vw, 4px);
-      word-break: break-word;
-    }
-    
-    .header p {
-      font-size: clamp(14px, 4vw, 24px);
-      color: #6a2c35;
-      font-weight: 300;
-      letter-spacing: clamp(0.5px, 0.2vw, 1px);
-      text-shadow: 0 1px 2px rgba(255,255,255,0.8);
-    }
-    
+
     .card {
       background: rgba(255, 255, 255, 0.96);
       border-radius: clamp(12px, 3vw, 20px);
@@ -438,16 +392,7 @@
       margin-bottom: 0;
     }
     
-    .footer {
-      text-align: center;
-      margin-top: clamp(24px, 6vw, 32px);
-      color: #313c5d;
-      font-size: clamp(12px, 3vw, 14px);
-      text-shadow: 0 1px 2px rgba(255,255,255,0.8);
-      padding: 0 clamp(8px, 2vw, 16px);
-      line-height: 1.5;
-    }
-    
+
     .hidden {
       display: none;
     }
@@ -477,10 +422,6 @@
       .card {
         padding: 16px;
       }
-      
-      .header {
-        margin-bottom: 16px;
-      }
     }
     
     /* Small devices (landscape phones) */
@@ -502,24 +443,12 @@
       body {
         padding: 48px 20px;
       }
-      
-      .header {
-        margin-bottom: 48px;
-      }
     }
     
     /* Landscape orientation fixes for mobile */
     @media screen and (max-height: 500px) and (orientation: landscape) {
       body {
         padding: 12px 8px;
-      }
-      
-      .header {
-        margin-bottom: 12px;
-      }
-      
-      .header h1 {
-        font-size: clamp(24px, 6vw, 48px);
       }
       
       .welcome-icon {
@@ -690,12 +619,10 @@
     function renderLookup() {
       return `
         <div class="container">
-          <div class="header">
-            <h1>RSVP</h1>
-            <p>Join us in celebrating our special day</p>
-          </div>
-          
           <div class="card">
+            <h1 style="font-size: clamp(32px, 10vw, 72px); color: #313c5d; margin-bottom: clamp(8px, 2vw, 16px); text-align: center; letter-spacing: clamp(2px, 0.5vw, 4px); font-weight: normal;">RSVP</h1>
+            <p style="font-size: clamp(14px, 4vw, 24px); color: #6a2c35; font-weight: 300; letter-spacing: clamp(0.5px, 0.2vw, 1px); text-align: center; margin-bottom: clamp(24px, 6vw, 32px);">Join us in celebrating our special day</p>
+            
             <div class="welcome-icon">
               <img src="The Millers.png" alt="The Millers" />
             </div>
@@ -726,10 +653,10 @@
               
               <button type="submit" class="button" aria-label="Continue to RSVP form">Continue</button>
             </form>
-          </div>
-          
-          <div class="footer">
-            <p>Questions? Contact us at dfmiller.3100@gmail.com</p>
+            
+            <div style="border-top: 2px solid #e5e7eb; margin-top: clamp(24px, 6vw, 32px); padding-top: clamp(16px, 4vw, 24px); text-align: center;">
+              <p style="font-size: clamp(12px, 3vw, 14px); color: #6b7280;">Questions? Contact us at dfmiller.3100@gmail.com</p>
+            </div>
           </div>
         </div>
       `;
